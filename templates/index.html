@@ -30,6 +30,20 @@
     
     <div class="col-lg-12">
       {% if featuredEvent %}
+      {% if suggestedEntries %}
+        <div class="home-carousel">
+          <div class="home-carousel__pictures">
+            {% for i in range(0, 20) %}
+              {% set entry = suggestedEntries[i % suggestedEntries.length] %}
+              {% set hasPictures = entry.has('pictures') and entry.get('pictures').length > 0 %}
+              <div class="home-carousel__picture" style="background-image: url('{{ entry.get('pictures')[0] if hasPictures else '/static/images/default-entry.png' }}')"></div>
+            {% endfor %}
+            <div class="home-carousel__overlay"></div>
+          </div>
+        </div>
+      {% endif %}
+        
+      
       <div class="home-jumbo">
           <div class="event-table {{ 'live' if featuredEvent.get('status') === 'open' else 'not-live' }}">
             <div class="row">
